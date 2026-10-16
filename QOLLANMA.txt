@@ -1,0 +1,23 @@
+SOLARCLEAN AI RESEARCH 3.0 — SUN’IY SINOV DATASETLARI
+
+DIQQAT: Barcha o‘lchovlar matematik ravishda YARATILGAN. Real panel yoki datchikdan olinmagan. Faqat dastur funksiyalarini sinash uchun.
+
+Dastur research_app.py talab qiladigan CSV ustunlari:
+timestamp, power_dirty_w, power_clean_w, irradiance_poa_wm2, temp_dirty_c, temp_clean_c
+
+Har bir CSV: 32 ta vaqt bo‘yicha bir vaqtdagi juft kuzatuv. Ikkala panel bir xil nurlanish ta’sirida deb modellashtirilgan. Harorat koeffitsiyenti gamma=-0.004 / °C (modeldagi standart taxmin).
+
+1. Lokal ilovani ishga tushiring: python -m streamlit run research_app.py
+2. «Juft panellar CSV faylini yuklang» orqali 02 yoki 03 faylni tanlang.
+3. «Ikkala panel toza vaqtdagi bazaviy nisbat» = 1.00 (test uchun shartli kalibrlash, O‘LCHANGAN EMAS).
+4. Natija taxminan 02 fayl uchun SR=0.97, 03 fayl uchun SR=0.78 chiqishi kerak.
+5. «Soiling ratio yuqori ishonch chegarasi» maydoniga 02 fayl uchun 1.00, 03 fayl uchun 0.82 kiriting. Bu ham haqiqiy statistik ishonch oralig‘i emas, qo‘lda kiritilgan ssenariy chegarasi.
+6. «Kelgusi davr uchun TOZA panel energiya prognozi» = 300 kWh, «Elektr qiymati»=1000 so‘m/kWh, «Tozalash xarajati»=25000 so‘m, «Bir tozalashdagi suv»=5 litr, «Mavjud suv limiti»=20 litr.
+7. «Asbob kalibrlangan, ma’lumotlar mustaqil tekshirilgan» checkboxni BELGILAMANG: dataset sintetik, shuning uchun haqiqiy CLEAN NOW qarori chiqmasligi kerak. Ikkala holatda INS UFFICIENT DATA chiqishi to‘g‘ri va xavfsiz. Konsolida ekonomika raqamlari farq qiladi.
+
+02 YENGIL: SR~0.97 => nuqtaviy tiklanish ~9 kWh, sof natija ~-16 000 so‘m; konservativ SR_upper=1.00 => ~-25 000 so‘m.
+03 KUCHLI: SR~0.78 => nuqtaviy tiklanish ~66 kWh, sof natija ~+41 000 so‘m; konservativ SR_upper=0.82 => ~+29 000 so‘m.
+
+01 Kalibrlash CSV 1.00 bazaviy nisbatni tasavvur qilishga yordam beruvchi mustaqil SINTETIK jadval. research_app.py kalibrlash nisbatini avtomatik hisoblamaydi; kiritilgan 1.00 qiymat ssenariydir.
+
+ESLATMA: Quvvat (W) bilan energiya (kWh) boshqa o‘lchamlar. Tadqiqot maydonida monitoring va qaror chiqarish uchun haqiqiy sinxron o‘lchovlar, sensorga oid metrologiya, testdan oldin/keyin validatsiya kerak.
